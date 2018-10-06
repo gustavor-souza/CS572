@@ -1,23 +1,17 @@
 const http = require('http');
-const path = require('path');
-const fileSystem = require('fs');
+const { fork } = require('child_process');
+const qs = require('querystring');
 
-const port = 3000;
+const port = 4000;
 
 const requestHandler = (request, response) => {
-  console.log(request.url);
-  var filePath = path.join(__dirname, 'jdk-8u171-windows-x64.zip');
-  var stat = fileSystem.statSync(filePath);
+  const reader = fork("reader.js");
 
-  response.writeHead(200, {
-	'Content-Type': 'application/zip',
-	'Content-disposition': 'attachment; jdk-8u171-windows-x64.zip',
-	'Content-Length': stat.size
+  reader.send(qs.parse(request.url)["/?url"]);
+
+  reader.on("message", data => {
+    response.end(data);
   });
-
-  var readStream = fileSystem.createReadStream(filePath);
-
-  readStream.pipe(response);
 }
 
 const server = http.createServer(requestHandler);
