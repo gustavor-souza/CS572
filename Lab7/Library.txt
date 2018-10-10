@@ -1,0 +1,13 @@
+use library
+
+db.createCollection("books");
+
+
+db.books.insert(
+  {
+	ISBN:112233, 
+	author: {name: "Gustavo", email: "t@teste.com"}, 
+	keywords: ["rich","dad", "poor"], 
+	borrowers: [{id:1, name: "student1", returnDate:"09/09/2018", startDate: "09/02/2018"}]
+  }
+);
