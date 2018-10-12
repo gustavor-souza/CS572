@@ -1,0 +1,47 @@
+db.col.aggregate([
+    {
+      $match: { state: "IA" }
+    },
+    {
+      $group: {
+        zips: { $addToSet: "$_id" }
+      }
+    }
+])
+
+db.col.aggregate([
+    {
+      $match: {
+        pop: { $lt: 1000 }
+      }
+    },
+    {
+      $group: {
+        zips: { $addToSet: "$_id" }
+      }
+    }
+])
+
+db.col.aggregate([
+    {
+      $group: {
+        _id: "$city",
+        zips: { $addToSet: "$_id" },
+        state: {$first: "$state"}
+      }
+    },
+    {
+      $project: {
+        _id: 1,
+        zips: 1,
+        size: { $size: "$zips" },
+        state: 1
+      }
+    },
+    {
+      $sort: {
+        state: 1,
+        city: 1
+      }
+    }
+])
