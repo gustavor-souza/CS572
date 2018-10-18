@@ -1,0 +1,9 @@
+<div>
+   <p>{{ message }}</p>
+   <ul>
+      <li
+        [myvisibility]=true mynewcolor='red'  (onColorChange)='changeColor($event)'  *ngFor="let item of items">
+          {{ item }}
+      </li>
+   </ul>
+</div>
