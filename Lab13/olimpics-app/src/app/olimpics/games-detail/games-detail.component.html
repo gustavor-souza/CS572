@@ -1,0 +1,14 @@
+
+<span>game id: {{data._id}}</span>
+<br/>
+<span>game name: {{data.game.name}}</span>
+<br/>
+<br/>
+<div *ngFor="let s of data.game.schedule">
+  <span >Stadium: {{s.stadium}}</span>
+  <br/>
+  <span >date: {{s.date}}</span>
+  <br/>
+  <span >time: {{s.time}}</span>
+  <br/>
+</div>

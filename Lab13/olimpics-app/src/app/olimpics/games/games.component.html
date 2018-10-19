@@ -1,0 +1,9 @@
+<h3>Games</h3>
+<br/>
+<ul>
+  <li *ngFor="let row of dbService.getData()">
+    <a [routerLink]="['row', row._id]">{{ row.game.name }}</a>
+  </li>
+</ul>
+<br/>
+<router-outlet></router-outlet>
